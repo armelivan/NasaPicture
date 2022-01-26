@@ -1,0 +1,21 @@
+{
+  "name": "labelboxnasaapi",
+  "version": "1.0.0",
+  "description": "This app simulate the rating given by a user on various picture from the NASA APOD API",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Armel Ivan Bado",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
