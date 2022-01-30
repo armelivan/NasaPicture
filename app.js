@@ -10,9 +10,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://'+process.env.USER+':'+process.env.PASSWORD+'@cluster0.tzf1z.mongodb.net/Labelbox?retryWrites=true&w=majority',
 {
 useNewUrlParser: true, 
-
-useUnifiedTopology: true 
-	
+useUnifiedTopology: true 	
 },err => {
 	if(err) throw err;
 	console.log('Connected to MongoDB!!!')
@@ -34,7 +32,7 @@ app.use('/image',imageRoute)
 app.use('/rating',ratingRoute)
 app.use('/user',userRoute)
 
-app.use((req,res,next)=>{
+app.use("/",(req,res,next)=>{
 	res.status(200).json({ // specifying the status as 200 and 
 		message:'NASA  IMAGES RATING'
 	})
