@@ -9,14 +9,11 @@ const UserList = require('../models/userList');
 
 
 
-// Create a new User and add it in the DataBase
+//Create a new User and add it in the DataBase
+//verify that the new User is not already in DB and then add it 
 router.post('/', (req,res)=>{
-    console.log(req.body)
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        email:req.body.email,
-        associatedImages:[]
-    });
+    console.log(req.body);
+    const user = createUser(req.body.email);
     user
     .save()
     .then(async (result)=> {
@@ -39,10 +36,15 @@ router.post('/', (req,res)=>{
     
 });
 
+
+//Delete a User present in the DataBase 
+//verify that the User is  already in DB
+//and then remove it from the email  provided  
 router.delete('/:userId',(req,res)=>{
+
    //remove element from the USER DB 
    const id = req.params.productId;
-   User.remove({ _id:id})
+   User.remove({_id:id})
    .exec()
    .then(async(result) =>{
        res.status(200).json(result);
@@ -59,15 +61,15 @@ router.delete('/:userId',(req,res)=>{
 
  
 
-// Auxiliary  Request to initiate the userList element
-// Create a new User and add it in the DataBase
+/*
+Auxiliary  Request
+*/
+
+//Initiate the userList element
+//Create a new UserList  and add it in the DataBase
 router.post('/newUserList',(req,res)=>{
     console.log(req.body)
-    const userList = new UserList({
-        _id: new mongoose.Types.ObjectId(),
-        name:req.body.name,
-        associatedUsers:[]
-    });
+    const userList = createUserList(req.body.name)
     userList
     .save()
     .then(result=>{
@@ -84,6 +86,27 @@ router.post('/newUserList',(req,res)=>{
     });
     
 });
+
+
+/*
+Users middleWares
+*/
+
+//Create User 
+const createUser = (email)=>{
+    return new User({
+        _id: new mongoose.Types.ObjectId(),
+        email:email,
+        associatedImages:[]
+    });
+}
+const createUserList = (name)=>{
+   return  new UserList({
+        _id: new mongoose.Types.ObjectId(),
+        name:name,
+        associatedUsers:[]
+    });
+}
 
 
 module.exports = router ;
