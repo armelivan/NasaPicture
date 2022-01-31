@@ -2,12 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
-require('dotenv').config();
+require('dotenv').config()
 
 
 //connection to DB 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://'+process.env.USER+':'+process.env.PASSWORD+'@cluster0.tzf1z.mongodb.net/Labelbox?retryWrites=true&w=majority',
+
+mongoose.connect('mongodb+srv://'+process.env.USERNAME+':'+process.env.PASSWORD+'@cluster0.tzf1z.mongodb.net/Labelbox?retryWrites=true&w=majority',
 {
 useNewUrlParser: true, 
 useUnifiedTopology: true 	
@@ -15,6 +16,15 @@ useUnifiedTopology: true
 	if(err) throw err;
 	console.log('Connected to MongoDB!!!')
 });
+/*
+mongoose.connect('mongodb+srv://armelivan:!vvY!sHkUaFea68@cluster0.tzf1z.mongodb.net/Labelbox?retryWrites=true&w=majority',
+{
+useNewUrlParser: true, 
+useUnifiedTopology: true 	
+},err => {
+	if(err) throw err;
+	console.log('Connected to MongoDB!!!')
+});*/
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -32,6 +42,8 @@ app.use('/image',imageRoute)
 app.use('/rating',ratingRoute)
 app.use('/user',userRoute)
 
+
+//main ressource
 app.use("/",(req,res,next)=>{
 	res.status(200).json({ // specifying the status as 200 and 
 		message:'NASA  IMAGES RATING'

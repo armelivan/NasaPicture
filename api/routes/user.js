@@ -12,11 +12,12 @@ const UserList = require('../models/userList');
 //Create a new User and add it in the DataBase
 //verify that the new User is not already in DB and then add it 
 router.post('/', (req,res)=>{
-    console.log(req.body);
+    
     const user = createUser(req.body.email);
+
     user
     .save()
-    .then(async (result)=> {
+    .then(async()=> {
         const userList = await UserList.findOneAndUpdate({name:"defaultUserList"},
         {
             $push:{
@@ -44,9 +45,8 @@ router.delete('/:userId',(req,res)=>{
 
    //remove element from the USER DB 
    const id = req.params.productId;
-   User.remove({_id:id})
-   .exec()
-   .then(async(result) =>{
+   User.remove({_id:id}).exec()
+   .then((result) =>{
        res.status(200).json(result);
    })
    .catch(err=>{
@@ -59,7 +59,8 @@ router.delete('/:userId',(req,res)=>{
 });
 
 
- 
+
+
 
 /*
 Auxiliary  Request
@@ -68,7 +69,6 @@ Auxiliary  Request
 //Initiate the userList element
 //Create a new UserList  and add it in the DataBase
 router.post('/newUserList',(req,res)=>{
-    console.log(req.body)
     const userList = createUserList(req.body.name)
     userList
     .save()
@@ -77,6 +77,12 @@ router.post('/newUserList',(req,res)=>{
         res.status(201).json({
         message:"new UserList added ",
         addedUserList: userList});
+        
+        res.status(201).json({
+            message:"new User added ",
+            addedUser: user
+        });
+
     })
     .catch((err)=>{
         console.log(err)
@@ -107,6 +113,8 @@ const createUserList = (name)=>{
         associatedUsers:[]
     });
 }
+
+
 
 
 module.exports = router ;

@@ -11,7 +11,8 @@ const mongooseSchema = mongoose.Schema({
     associatedUser:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
-    }
+    },
+    
 
 });
 

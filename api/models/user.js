@@ -9,7 +9,8 @@ const mongooseSchema = mongoose.Schema({
     associatedImages:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Rating'
-    }]
+    }],
+
 });
 
 module.exports= mongoose.model('User',mongooseSchema);

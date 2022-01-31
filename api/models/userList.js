@@ -9,7 +9,8 @@ const mongooseSchema = mongoose.Schema({
     associatedUsers:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
-    }]
+    }],
+
 });
 
 module.exports= mongoose.model('UserList',mongooseSchema);
