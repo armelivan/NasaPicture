@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 
 const mongooseSchema = mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
     associatedImage:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Image'
@@ -12,6 +11,11 @@ const mongooseSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
     },
+    score:{
+        type:Number,
+        min:1,
+        max:5
+    }
     
 
 });

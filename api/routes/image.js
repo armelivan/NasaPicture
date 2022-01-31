@@ -10,16 +10,14 @@ require('dotenv').config()
 const Image= require('../models/image');
 
 API_KEY = process.env.API_KEY
+
 //Fetch Image from NASA API and store it to the DB 
-
-router.get('/',async (req,res)=>{
-
-    
+router.get('/',(res)=>{
     const url =`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
-    
     const options = {
         "method":"GET"
     };
+
     fetch(url,options)   
     .then(response=> {
         const image= createImage(response.url);
@@ -44,7 +42,11 @@ router.get('/',async (req,res)=>{
    
 })
 
+/*
+Image middleWares
+*/
 
+// generate the Image Object 
 const createImage=(pictureLink)=>{
     return  new Image({
         _id: new mongoose.Types.ObjectId(),
