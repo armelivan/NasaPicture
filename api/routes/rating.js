@@ -64,14 +64,33 @@ router.put('/',(req,res)=>{
 //Delete a user rating
 
 router.delete('/',(req,res)=>{
-    
+    Rating.remove({_id:req.body.ratingId}).exec()
+    .then((result) =>{
+        res.status(200).json(result);
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(500).json
+    })    
 });
 
 
 //Get all of a User's ratings 
 
 router.get('/',(req,res)=>{
-    
+    gettingAllUserRating(req.body.userId)
+    .then((response)=>{
+        res.status(200).json({
+            message:success,
+            ratingList = response
+        })
+    })
+    .catch((err)=>{
+        res.status(400).json({
+            error:err
+        })
+    })
+
 });
 
 
@@ -100,12 +119,24 @@ createRating = (rating,userId,imageId)=>{
 
 gettingRating=(ratingId)=>{
     return new Promise((resolve,reject)=>{
-        rating = Rating.findOne({_id:ratingId})
+        rating = Rating.findOne({_id:ratingId}).exec()
         if(rating!=null){
             resolve(rating)
         }else{
             reject(new Error('fail'))
         }
+    })
+}
+
+gettingAllUserRating =(userId)=>{
+    return new Promise((resolve,reject)=>{
+        userRatings= Rating.find({associatedUser:userId}).exec()
+        if (userRatings !=null){
+            resolve(userRatings)
+        }else{
+            reject(new Error('fail')) 
+        }
+
     })
 }
 module.exports = router 
